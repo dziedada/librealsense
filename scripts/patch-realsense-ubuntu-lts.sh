@@ -64,7 +64,7 @@ then
 	read -n 1 -t 10 -r -p "Do you want to proceed? [Y/n]" response
 	set -e
 	response=${response,,}    # tolower
-	if [[ $response =~ ^(n|N)$ ]]; 
+	if [[ $response =~ ^(n|N)$ ]];
 	then
 		echo -e "\e[41mScript has been aborted on user requiest. Please resolve the modified files are rerun\e[0m"
 		exit 1
@@ -81,7 +81,7 @@ fi
 [ "$#" -ne 0 -a "$1" == "reset" ] && reset_driver=1 || reset_driver=0
 
 if [ $reset_driver -eq 1 ];
-then 
+then
 	echo -e "\e[43mUser requested to rebuild and reinstall ubuntu-${ubuntu_codename} stock drivers\e[0m"
 else
 	# Patching kernel for RealSense devices
@@ -148,5 +148,10 @@ try_module_insert videodev				~/$LINUX_BRANCH-videodev.ko 			/lib/modules/`uname
 try_module_insert uvcvideo				~/$LINUX_BRANCH-uvcvideo.ko 			/lib/modules/`uname -r`/kernel/drivers/media/usb/uvc/uvcvideo.ko
 try_module_insert hid_sensor_accel_3d 	~/$LINUX_BRANCH-hid-sensor-accel-3d.ko 	/lib/modules/`uname -r`/kernel/drivers/iio/accel/hid-sensor-accel-3d.ko
 try_module_insert hid_sensor_gyro_3d	~/$LINUX_BRANCH-hid-sensor-gyro-3d.ko 	/lib/modules/`uname -r`/kernel/drivers/iio/gyro/hid-sensor-gyro-3d.ko
+
+rm ~/$LINUX_BRANCH-videodev.ko
+rm ~/$LINUX_BRANCH-uvcvideo.ko
+rm ~/$LINUX_BRANCH-hid-sensor-accel-3d.ko
+rm ~/$LINUX_BRANCH-hid-sensor-gyro-3d.ko
 
 echo -e "\e[92m\n\e[1mScript has completed. Please consult the installation guide for further instruction.\n\e[0m"
